@@ -81,6 +81,9 @@ p { margin: 0 0 1.1em; }
 .portrait { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 80% 62%; margin: 0 0 36px; }
 .watch { color: var(--accent); }
 .work .perf { grid-column: 1 / -1; font-size: 14px; color: var(--muted); }
+.sub { display: none; flex-direction: column; gap: 6px; padding-left: 14px; font-size: 14px; }
+.sub.on { display: flex; }
+@media (max-width: 760px) { .sub.on { flex-direction: row; flex-wrap: wrap; gap: 4px 18px; flex-basis: 100%; padding-left: 0; } }
 dl.contact { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 14px 24px; margin: 0; }
 dl.contact dt { color: var(--muted); font-size: 15px; }
 dl.contact dd { margin: 0; overflow-wrap: anywhere; }
@@ -103,6 +106,11 @@ footer { grid-column: 2; font-size: 13px; color: var(--muted); margin-top: 56px;
     <a class="name" href="#home">Shouye Huang<span>Composer</span></a>
     <nav aria-label="Main">
       <a href="#works">Works</a>
+      <div class="sub" id="worksub">
+        <a href="#works-large-ensemble">Large ensemble</a>
+        <a href="#works-chamber">Chamber</a>
+        <a href="#works-electroacoustic">Electroacoustic</a>
+      </div>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -264,14 +272,32 @@ footer { grid-column: 2; font-size: 13px; color: var(--muted); margin-top: 56px;
 <script>
 (function () {
   var views = ['home', 'works', 'about', 'contact'];
+  var works = document.getElementById('v-works');
+  function slug(t) { return t.trim().toLowerCase().replace(/\s+/g, '-'); }
+  var cats = Array.prototype.map.call(works.querySelectorAll('h2'), function (h) { return slug(h.textContent); });
   function show() {
-    var v = (location.hash || '').replace('#', '');
-    if (views.indexOf(v) < 0) v = 'home';
+    var h = (location.hash || '').replace('#', '');
+    var v = h, cat = '';
+    if (h.indexOf('works-') === 0) { v = 'works'; cat = h.slice(6); }
+    if (views.indexOf(v) < 0) { v = 'home'; cat = ''; }
+    if (cats.indexOf(cat) < 0) cat = '';
     views.forEach(function (n) {
       document.getElementById('v-' + n).classList.toggle('on', n === v);
     });
+    var on = false, first = true;
+    Array.prototype.forEach.call(works.children, function (el) {
+      if (el.tagName === 'H1') return;
+      if (el.tagName === 'H2') {
+        on = !cat || slug(el.textContent) === cat;
+        el.style.marginTop = (on && first) ? '0' : '';
+        if (on) first = false;
+      }
+      el.style.display = on ? '' : 'none';
+    });
+    document.getElementById('worksub').classList.toggle('on', v === 'works');
+    var cur = '#' + (cat ? 'works-' + cat : v);
     document.querySelectorAll('nav a').forEach(function (a) {
-      if (a.getAttribute('href') === '#' + v) a.setAttribute('aria-current', 'page');
+      if (a.getAttribute('href') === cur) a.setAttribute('aria-current', 'page');
       else a.removeAttribute('aria-current');
     });
     window.scrollTo(0, 0);
