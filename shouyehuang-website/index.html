@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shouye Huang, Composer</title>
+<meta name="description" content="Shouye Huang is a composer of acoustic and electronic music. Works, biography and contact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a fixed name-and-nav column on the left, one quiet reading column on the right;
+   works are set like a catalogue: title, forces, year, duration. */
+:root {
+  --paper: #f6f7f7;
+  --ink: #15191b;
+  --muted: #667074;
+  --rule: #d9dedf;
+  --accent: #1d5a6b;
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121516; --ink: #e7eaea; --muted: #929b9e; --rule: #2b3133; --accent: #86c3d2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121516; --ink: #e7eaea; --muted: #929b9e; --rule: #2b3133; --accent: #86c3d2;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 17px/1.65 var(--body);
+}
+a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 0.2em; }
+a:hover { color: var(--accent); text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.shell {
+  display: grid; grid-template-columns: 220px minmax(0, 620px); gap: 72px;
+  max-width: 1000px; margin: 0 auto; padding: 72px 24px 96px;
+}
+header { position: sticky; top: 72px; align-self: start; display: flex; flex-direction: column; gap: 36px; }
+.name { font: 400 34px/1.05 var(--display); text-decoration: none; letter-spacing: 0.005em; }
+.name span { display: block; font: 400 14px/1.4 var(--body); color: var(--muted); margin-top: 10px; letter-spacing: 0.04em; }
+nav { display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
+nav a { text-decoration: none; color: var(--muted); width: fit-content; }
+nav a[aria-current="page"] { color: var(--ink); box-shadow: 0 1px 0 var(--ink); }
+
+main section { display: none; }
+main section.on { display: block; }
+h1 { font: 400 44px/1.1 var(--display); margin: 0 0 28px; text-wrap: balance; }
+h2 {
+  font: 500 12px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin: 48px 0 0; padding-bottom: 12px; border-bottom: 1px solid var(--rule);
+}
+p { margin: 0 0 1.1em; }
+.lede { font: 400 27px/1.35 var(--display); margin-bottom: 28px; text-wrap: pretty; }
+.small { font-size: 15px; color: var(--muted); }
+
+.work { border-bottom: 1px solid var(--rule); }
+.work summary {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px;
+  padding: 18px 0; cursor: pointer; list-style: none;
+}
+.work summary::-webkit-details-marker { display: none; }
+.work .title { font: italic 400 25px/1.2 var(--display); }
+.work summary:hover .title { color: var(--accent); }
+.work .meta { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; align-self: center; }
+.work .forces { grid-column: 1 / -1; font-size: 15px; color: var(--muted); }
+.work .more { grid-column: 1 / -1; font-size: 13px; color: var(--accent); }
+.work[open] .more { display: none; }
+.work .note { padding: 0 0 24px; font-size: 16px; }
+.work .note .premiere { color: var(--muted); font-size: 15px; }
+.work.plain { padding: 18px 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; }
+
+.portrait { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 80% 62%; margin: 0 0 36px; }
+.watch { color: var(--accent); }
+.work .perf { grid-column: 1 / -1; font-size: 14px; color: var(--muted); }
+dl.contact { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 14px 24px; margin: 0; }
+dl.contact dt { color: var(--muted); font-size: 15px; }
+dl.contact dd { margin: 0; overflow-wrap: anywhere; }
+
+footer { grid-column: 2; font-size: 13px; color: var(--muted); margin-top: 56px; }
+
+@media (max-width: 760px) {
+  .shell { grid-template-columns: minmax(0, 1fr); gap: 40px; padding: 36px 20px 64px; }
+  header { position: static; gap: 20px; }
+  nav { flex-direction: row; flex-wrap: wrap; gap: 6px 22px; }
+  footer { grid-column: 1; }
+  h1 { font-size: 36px; }
+  .lede { font-size: 23px; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <a class="name" href="#home">Shouye Huang<span>Composer</span></a>
+    <nav aria-label="Main">
+      <a href="#works">Works</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="v-home">
+      <img class="portrait" src="portrait.jpg" alt="Shouye Huang standing beside a grand piano in a concert hall, holding a bouquet" width="1100" height="1650">
+      <p class="lede">Shouye Huang (b. China) is a composer whose music bridges classical tradition and contemporary electronic expression.</p>
+      <p>His work explores the synthesis of Eastern aesthetics with Western modernist and postmodernist practices, forming a sound world where contrasting idioms coexist organically.</p>
+      <p>He is a PhD student in Composition at the University of Minnesota, where he studies with Sivan Cohen Elias.</p>
+      <p class="small"><a href="#works">Works</a> &nbsp;·&nbsp; <a href="#about">Full biography</a> &nbsp;·&nbsp; <a href="Shouye_Huang_CV.pdf">CV (PDF)</a></p>
+    </section>
+
+    <section id="v-works">
+      <h1>Works</h1>
+
+      <h2 style="margin-top:0">Large ensemble</h2>
+      <details class="work">
+        <summary>
+          <span class="title">Dreams of the Mirage</span>
+          <span class="meta">2024 &nbsp; 7'10''</span>
+          <span class="forces">for orchestra</span>
+          <span class="more">Programme note and video</span>
+        </summary>
+        <div class="note">
+          <p class="premiere">Premiere: MSM Symphony Orchestra, April 11, 2025, Aaron Davis Hall, The City College of New York.<br><a class="watch" href="https://www.youtube.com/watch?v=xVLIPSQVP6w">Watch on YouTube</a></p>
+          <p>Freud’s theories on dreams and the unconscious provide a profound framework for understanding <em>Dreams of the Mirage</em>. This work originates from a vivid dream of mine: I returned to a concert hall and heard my own music being rehearsed, an experience that was both familiar and ahead of reality. This moment reflects the inner longing for creation and the continuation of artistic life, even within the realm of sleep.</p>
+          <p>After waking, I was seized by a strong desire to capture every fragment of the dream: the echo of the hall, the changing harmonies, and the performers’ secondary interpretation of the music. This impulse to transform the dream into real sound echoes Freud’s theory of sublimation, in which hidden desires and unconscious energy are transformed into creative expression. Through composition, the dream is no longer a fleeting illusion but becomes a vivid soundscape, like a living mirage.</p>
+          <p>The piece falls into two parts, <em>I. The Unconscious</em> (bars 1–49) and <em>II. Between Dream and Reality</em> (bar 50 to the end), closing with a coda from bar 99. The music unfolds in multiple layers, employing whole-tone and chromatic ascending or descending motion to create colorful harmonies. In the dream, powerful brass sounds are heard at the very beginning; even within the dream, such solid sonorities convinced me that I was truly in the rehearsal hall. I wrote down all the musical details after waking and worked to adjust the balance of sounds; rhythmically, I generated new material through a process of fission, generating progressively intricate rhythmic patterns. From simplicity to complexity, the horizontal motion of pitch becomes faster and faster, enriching the vertical harmonic colors. The orchestral timbres, sometimes bright, sometimes dark, shift fluidly. Gentle transitions connect each section, as if one were standing inside a mirage that is constantly reshaping itself.</p>
+          <p>The second part consists largely of extended techniques. Many instruments create air sounds and white-noise textures: woodwinds playing without reeds, brass without buzzing, and strings on the bridge with muted left hands. Some materials stand out for their distinctive color: brass with different mutes, vibraphone played with medium-soft xylophone mallets and bowed to bend the pitch, trombones producing metallic impacts with the slide, and double basses drumming on the body of the instrument. This part is like a dialogue between consciousness and the unconscious, between the composer within the dream and the composer who awakens to create.</p>
+          <p><em>Coda: Dream within a Dream.</em> The previous themes return at half their original tempo, serene and contemplative, as if upon awakening. The orchestration becomes sparse and transparent: strings alternate between sul ponticello and sul tasto, woodwinds switch between two timbres (bisbigliando), accompanied by a minimal amount of percussion. It guides the listener into a realm where sound, memory, and desire intertwine, a space where the music itself becomes a dream within a dream.</p>
+        </div>
+      </details>
+
+      <div class="work plain">
+        <span class="title">Cheeky Love Affair</span>
+        <span class="meta">2024 &nbsp; 3'30''</span>
+        <span class="forces">for jazz band</span>
+        <span class="perf">Performance: December 2024, MSM Jazz Studio Band.</span>
+      </div>
+
+      <h2>Chamber</h2>
+      <details class="work">
+        <summary>
+          <span class="title">2084</span>
+          <span class="meta">2025 &nbsp; 5'50''</span>
+          <span class="forces">for baritone, bass clarinet, trumpet, trombone and electronics. Text by George Orwell</span>
+          <span class="more">Programme note and video</span>
+        </summary>
+        <div class="note">
+          <p class="premiere">Commissioned by Loadbang. Premiere: Loadbang, June 26, 2025, Longy School of Music, Boston.<br><a class="watch" href="https://www.youtube.com/watch?v=1sB2Ncg2Fpg">Watch on YouTube</a></p>
+          <p>George Orwell’s <em>1984</em> envisioned a world defined by constant surveillance and the erosion of personal freedom. <em>2084</em> draws inspiration from this iconic work, not as a literal continuation of Orwell’s narrative but as a contemporary reflection on technology’s increasingly intimate role in shaping human life.</p>
+          <p>Today, artificial intelligence mediates our communication, tracks our decisions, and quietly reshapes our sense of autonomy. <em>2084</em> explores these shifting boundaries between the digital and the personal. Where do convenience and innovation end, and where does human agency begin? How do we navigate the tension between connection and control in a world where every action leaves a data trace?</p>
+          <p>The music blends electronics with extended techniques for acoustic instruments, forging new sonic identities that blur the lines between human and machine. Fractured vocal fragments and unstable rhythmic structures evoke a sonic landscape of monitoring, mediation, and resistance. Rather than offering a dystopian warning, <em>2084</em> invites listeners to reflect on our evolving relationship with technology, a future that is already arriving, one decision at a time.</p>
+        </div>
+      </details>
+      <div class="work plain">
+        <span class="title">Melody of Night</span>
+        <span class="meta">2025 &nbsp; 2'00''</span>
+        <span class="forces">for clarinet, violin and piano</span>
+        <span class="perf">Commissioned and performed by the Zodiac Trio, February 2025, Manhattan School of Music. <a class="watch" href="https://www.youtube.com/watch?v=W2FKyzSnIME">Watch on YouTube</a></span>
+      </div>
+      <div class="work plain">
+        <span class="title">Emotion Beyond Words</span>
+        <span class="meta">2025 &nbsp; 4'00''</span>
+        <span class="forces">for two voices</span>
+        <span class="perf">Performance: May 2025, Mikowsky, Manhattan School of Music.</span>
+      </div>
+      <div class="work plain">
+        <span class="title">Core Sound</span>
+        <span class="meta">2024 &nbsp; 4'10''</span>
+        <span class="forces">for flute, trumpet, violin and piano</span>
+        <span class="perf">Performance: July 2024, Jacobs School of Music, Indiana University. <a class="watch" href="https://www.youtube.com/watch?v=DDwoobgriwE">Watch on YouTube</a></span>
+      </div>
+      <div class="work plain">
+        <span class="title">Falling Time</span>
+        <span class="meta">2024 &nbsp; 2'10''</span>
+        <span class="forces">for solo voice</span>
+        <span class="perf">Performance: December 2024, Mikowsky, Manhattan School of Music.</span>
+      </div>
+      <details class="work">
+        <summary>
+          <span class="title">Dancing Clownfish</span>
+          <span class="meta">2023 &nbsp; 6'20''</span>
+          <span class="forces">for alto saxophone and percussion</span>
+          <span class="more">Programme note and video</span>
+        </summary>
+        <div class="note">
+          <p class="premiere">Premiere: February 19, 2024, Ades Performance Space, Manhattan School of Music, New York.<br><a class="watch" href="https://www.youtube.com/watch?v=ZnkJMD8sZkc">Watch on YouTube</a></p>
+          <p>While the initial inspiration for this work came from a modern Chinese animated series, <em>GG Bond</em>, its true significance goes far beyond narrative depiction: it explores inner vitality, spontaneity, and the transformation of psychological energy into sound.</p>
+          <p>The saxophone and percussion act as psychological archetypes, impulse and consciousness. Their dialogue embodies the essence of expressionism, not as stylistic imitation but in its spiritual core, where sound becomes an externalization of the inner self. The saxophone’s tremolo woven into the melody, its sharp dynamic changes, timbral contrasts, multiphonics, fragmented lines, and rhythmic distortions and repetitions meet unusual percussion writing, such as a finger cymbal placed on the surface of a cymbal, or struck against the head of a drum.</p>
+          <p>At the end of the piece the saxophonist plays the final percussion note, and in some passages raises the saxophone to the left and right. Near the end, a finger cymbal falls onto the snare drum.</p>
+          <p>The name is inspired by Nemo, the clownfish of <em>Finding Nemo</em>, whose personality is remarkably close to GG Bond’s. Fearless and humorous, restless and energetic, its forward motion symbolizes human instinct and emotional freedom. Beneath the lighthearted surface lies a tension, the core paradox of expressionism: the coexistence of chaos and clarity, instinct and consciousness. The work is both a portrait of a character and a reflection of my own self-identification with a new culture and inner world.</p>
+        </div>
+      </details>
+      <div class="work plain">
+        <span class="title">The Dancer’s Song</span>
+        <span class="meta">2022 &nbsp; 7'50''</span>
+        <span class="forces">for flute and piano</span>
+        <span class="perf">Performance: May 2023, Standard Concert Hall, Tianjin Conservatory of Music.</span>
+      </div>
+
+      <h2>Electroacoustic</h2>
+      <details class="work">
+        <summary>
+          <span class="title">A Pier Without Arrival</span>
+          <span class="meta">2025 &nbsp; 7'40''</span>
+          <span class="forces">for piano and electronics</span>
+          <span class="more">Programme note and video</span>
+        </summary>
+        <div class="note">
+          <p class="premiere">Commissioned by the Platypus Ensemble. Premiere: August 2025, University of Music and Performing Arts Vienna.<br><a class="watch" href="https://www.youtube.com/watch?v=DrJmAtJsVeQ">Watch on YouTube</a></p>
+          <p>This piece was written for the Chinese laborers who built the transcontinental railroad in America. The dock was both their starting point and their end point. Now the dock is deserted, but I still want to revisit this great historical feat. I used extended techniques on the piano to evoke reverberation and memory, while retaining the instrument’s traditional harmonic function: the futuristic and the foundational aspects of that history. The traditional piano writing suggests waves and distant ship horns. Starting from a vague initial idea, I experimented and revised until the direction became clear: this is a piece about history.</p>
+          <p>The work has two parts. The first, <em>Arrival</em>, rests on a vague, uneasy electronic foundation that develops through a gradually accelerating and intensifying tapping gesture. Rather than depicting a literal narrative, this expanding pulse heightens the emotional tension of arrival. At the end of the section the electronics cut off abruptly, marking the moment when imagined futures collide with the stark reality of labor.</p>
+          <p>The second part, <em>Labor and Waiting</em>, is for piano alone. Its harmonies are richer, with complex overlapping chords that recall jazz and modal harmony. As everything fades away, the piece does not try to tell a complete story. It is a retrospective, a commemoration: an image of a dock, and a way of turning historical memory into sound. In today’s fast-paced world, it is about refocusing on overlooked people and events.</p>
+        </div>
+      </details>
+      <div class="work plain">
+        <span class="title">Tea and Echoes</span>
+        <span class="meta">2025 &nbsp; 6'50''</span>
+        <span class="forces">for fixed media</span>
+        <span class="perf">Performance: May 2025, Miller, Manhattan School of Music.</span>
+      </div>
+      <div class="work plain">
+        <span class="title">Echoes of the Mind</span>
+        <span class="meta">2024 &nbsp; 6'25''</span>
+        <span class="forces">for violin and electronics</span>
+        <span class="perf">Performance: November 2024, Greenfield Hall, Manhattan School of Music. <a class="watch" href="https://www.youtube.com/watch?v=sZZZyXwH8A4">Watch on YouTube</a></span>
+      </div>
+    </section>
+
+    <section id="v-about">
+      <h1>About</h1>
+      <p>Shouye Huang (b. China) is a composer whose music bridges classical tradition and contemporary electronic expression. His work explores the synthesis of Eastern aesthetics with Western modernist and postmodernist practices, forming a sound world where contrasting idioms coexist organically.</p>
+      <p>He began studying piano at the age of five and turned to composition during high school. Huang received his Bachelor of Music in Composition from the Tianjin Conservatory of Music in 2023 and his Master of Music from the Manhattan School of Music in 2025, where he studied with Ashkan Behzadi and David Adamcyk. He is now a PhD student in Composition at the University of Minnesota, studying with Sivan Cohen Elias.</p>
+      <p>Huang’s works have been commissioned and performed by the Zodiac Trio, Loadbang, and the Platypus Ensemble, and by the MSM Symphony Orchestra. His recent projects involve collaborations across acoustic and electronic media, as well as interdisciplinary partnerships with performers and creators from the Jacobs School of Music.</p>
+      <p>At the center of his artistic vision lies the dialogue between cultural identity and musical innovation. His compositions weave together diverse cultural influences, blur the boundary between acoustic and electronic sound, and situate musical creation within a broader social and imaginative context.</p>
+      <p><a href="Shouye_Huang_CV.pdf">Curriculum vitae (PDF)</a></p>
+    </section>
+
+    <section id="v-contact">
+      <h1>Contact</h1>
+      <dl class="contact">
+        <dt>Email</dt>
+        <dd><a href="mailto:composershouye@gmail.com">composershouye@gmail.com</a></dd>
+        <dt>YouTube</dt>
+        <dd><a href="https://www.youtube.com/@ShouyeHuang">youtube.com/@ShouyeHuang</a></dd>
+        <dt>Instagram</dt>
+        <dd><a href="https://www.instagram.com/composerhuang/">instagram.com/composerhuang</a></dd>
+      </dl>
+      <p class="small" style="margin-top:36px">For scores, parts and recordings, please write by email.</p>
+    </section>
+  </main>
+
+  <footer>© 2026 Shouye Huang</footer>
+</div>
+
+<script>
+(function () {
+  var views = ['home', 'works', 'about', 'contact'];
+  function show() {
+    var v = (location.hash || '').replace('#', '');
+    if (views.indexOf(v) < 0) v = 'home';
+    views.forEach(function (n) {
+      document.getElementById('v-' + n).classList.toggle('on', n === v);
+    });
+    document.querySelectorAll('nav a').forEach(function (a) {
+      if (a.getAttribute('href') === '#' + v) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', show);
+  show();
+})();
+</script>
+</body>
+</html>
